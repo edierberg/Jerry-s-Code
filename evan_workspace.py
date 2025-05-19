@@ -15,5 +15,12 @@ May 29: Modulate speed of wheel spinning - - incorporated
 
 June 2: Final done, with as many nice to haves as possible incorporated
 
-
+Shooting Mechanism 
+    bow
+        stationary at bottom of screen
+    arrow
+        arrowhead placed at tip of bow. upon click/press key, one arrow fires at wheel w constant v
+        as soon as arrow hits wheel, next arrow loaded in same spot
+        stop kinematics for arrow once hits the wheel
+        stick the arrow to the wheel by reorienting it in polar coordinates/rotation around a fixed center
 '''
