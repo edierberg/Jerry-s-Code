@@ -10,7 +10,6 @@
 '''
 
 import sys
-
 import pygame
 import pygame.locals
 
@@ -23,11 +22,11 @@ def Wheel(radius, width, height, screen):
     pygame.display.flip()
     return 
 
-def Spin(Speed):
+def Arrow_Spin(screen):
     return
 
 def Detection(Width_Arrows):
-    # check position of arrow 
+    # check position of arrowead 
     return
 
 def main():
@@ -40,8 +39,8 @@ def main():
 
     while True:
         screen.fill("#000000")
-        Spin()
-        Detection()
+        #Spin()
+        #Detection()
         fps_clock.tick(fps)
 
 
