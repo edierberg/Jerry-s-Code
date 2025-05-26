@@ -33,6 +33,10 @@ def main():
         #Detection()
         fps_clock.tick(fps)
 
+        for event in pygame.event.get():
+            if event.type == pygame.locals.QUIT:
+                pygame.quit()
+                sys.exit()
 
 if __name__ == "__main__":
     main()
