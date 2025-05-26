@@ -11,7 +11,8 @@ def Wheel(radius, width, height, screen):
     pygame.display.flip()
     return 
 
-def Arrow_Spin(screen):
+def Wheel_Spin(screen):
+    #Wheel spin 
     return
 
 def Detection(Width_Arrows):
