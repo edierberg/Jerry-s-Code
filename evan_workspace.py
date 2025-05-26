@@ -47,7 +47,8 @@ def make_bow_surface():
     surf = pygame.Surface((60, 120), pygame.SRCALPHA)
     pygame.draw.arc(surf, (139,69,19), (10, 10, 40, 100), 3.14/2, 3*3.14/2, 6)  # bow
     pygame.draw.line(surf, (255,255,255), (30, 10), (30, 110), 2)               # string
-
+    pygame.draw.rect(surf, (240, 240, 240), (4, 0, 2, 40))        # shaft
+    pygame.draw.polygon(surf, (180, 0, 0), [(2, 0), (8, 0), (5, -10)])  # tip
 
     return surf
 
