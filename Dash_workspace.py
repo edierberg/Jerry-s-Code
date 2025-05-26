@@ -8,6 +8,3 @@
     width of arrow head = 10
     speed of wheel
 '''
-Width_Arrow_Head = 10
-Speed_Wheel = 20 
-Radius_Wheel = 50
