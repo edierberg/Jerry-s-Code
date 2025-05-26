@@ -4,10 +4,10 @@ import pygame.locals
 
 Width_Arrow_Head = 10
 Speed_Wheel = 20 
-Radius_Wheel = 200
+Radius_Wheel = 150
 
 def Wheel(radius, width, height, screen):
-    pygame.draw.circle(screen, "#ff0000", (width/2, height/2 - radius), radius, 0)
+    pygame.draw.circle(screen, "#ff0000", (width/2, height/2 - 300), radius, 0)
     pygame.display.flip()
     return 
 
