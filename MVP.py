@@ -1,6 +1,8 @@
 import sys
 import pygame
 import pygame.locals
+import math
+import random
 
 Width_Arrow_Head = 10
 Speed_Wheel = 20 
@@ -24,8 +26,25 @@ def main():
     fps_clock = pygame.time.Clock()
     width, height = 1000, 1000
     screen = pygame.display.set_mode((width, height))
+    center = (450, 450)
+    radius = 150
+    x, y, z, a, b, c = 0,0,255,255,0,255
+    center_color = (a, b, c) 
+    edge_color = (x, y, z)
 
     Wheel(Radius_Wheel, width, height, screen)
+
+    for y in range(center[1] - radius, center[1] + radius):
+        for x in range(center[0] - radius, center[0] + radius):
+            dx = x - center[0]
+            dy = y - center[1]
+            distance = math.sqrt(dx**2 + dy**2)
+            if distance <= radius:
+                t = distance / radius
+                color = tuple(int(center_color[i] + (edge_color[i] - center_color[i]) * t) for i in range(3))
+                screen.set_at((x, y), color)
+
+    pygame.display.flip()
 
     while True:
         screen.fill("#000000")

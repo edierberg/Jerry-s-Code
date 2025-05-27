@@ -31,7 +31,6 @@ pygame.display.set_caption("Needle Shooting Game")
 
 center = (450, 450)
 radius = 150
-#x, y, z, a,b,c = int(range(0,255)),int(range(0,255)),int(range(0,255)),int(range(0,255)),int(range(0,255)),int(range(0,255))
 x, y, z, a,b,c = 0,0,255,255,0,255
 center_color = (a, b, c) 
 edge_color = (x, y, z)
