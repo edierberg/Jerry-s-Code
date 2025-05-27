@@ -23,7 +23,7 @@ a. Can restart and shows high scores
 '''
 
 pygame.init()
-fps = 60
+fps = 240
 fpsClock = pygame.time.Clock()
 width, height = 900, 900 
 screen = pygame.display.set_mode((width, height))
@@ -31,27 +31,26 @@ pygame.display.set_caption("Needle Shooting Game")
 
 center = (450, 450)
 radius = 150
-center_color = (x, y, z) 
-edge_color = (a, b, c)
+#x, y, z, a,b,c = int(range(0,255)),int(range(0,255)),int(range(0,255)),int(range(0,255)),int(range(0,255)),int(range(0,255))
+x, y, z, a,b,c = 0,0,255,255,0,255
+center_color = (a, b, c) 
+edge_color = (x, y, z)
 
 
-# Game loop.
-
-
-# Event loop to keep the window open
-running =True
-while running:
-    for y in range(center[1] - radius, center[1] + radius):
-        for x in range(center[0] - radius, center[0] + radius):
-            dx = x - center[0]
-            dy = y - center[1]
-            distance = math.sqrt(dx**2 + dy**2)
+for y in range(center[1] - radius, center[1] + radius):
+    for x in range(center[0] - radius, center[0] + radius):
+        dx = x - center[0]
+        dy = y - center[1]
+        distance = math.sqrt(dx**2 + dy**2)
         if distance <= radius:
             t = distance / radius
             color = tuple(int(center_color[i] + (edge_color[i] - center_color[i]) * t) for i in range(3))
             screen.set_at((x, y), color)
 
-    pygame.display.flip()
+pygame.display.flip()
+
+running =True
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
