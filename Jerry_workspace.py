@@ -6,8 +6,8 @@ import pygame.locals
 import math
 import random
 import time
-'''
-minimum viable project:
+
+'''minimum viable project:
 Spinning Wheel (wheel spinning around fixed point) 
 
 Nice to have:
@@ -27,26 +27,15 @@ fps = 240
 fpsClock = pygame.time.Clock()
 width, height = 900, 900 
 screen = pygame.display.set_mode((width, height))
+original_image = pygame.image.load("circle.png").convert_alpha()
+rect = original_image.get_rect(center=(450, 450))
+angle = 0
+clock = pygame.time.Clock()
 pygame.display.set_caption("Needle Shooting Game")
+background_color=(0,0,0)
 
-center = (450, 450)
-radius = 150
-x, y, z, a,b,c = 0,0,255,255,0,255
-center_color = (a, b, c) 
-edge_color = (x, y, z)
-
-
-for y in range(center[1] - radius, center[1] + radius):
-    for x in range(center[0] - radius, center[0] + radius):
-        dx = x - center[0]
-        dy = y - center[1]
-        distance = math.sqrt(dx**2 + dy**2)
-        if distance <= radius:
-            t = distance / radius
-            color = tuple(int(center_color[i] + (edge_color[i] - center_color[i]) * t) for i in range(3))
-            screen.set_at((x, y), color)
-
-pygame.display.flip()
+for i in range:
+    speed = random.uniform(-0.8, 0.8)
 
 running =True
 while running:
@@ -54,4 +43,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    angle += 1
+    angle %= 360
+    rotated_image = pygame.transform.rotate(original_image, -angle) 
+    rotated_rect = rotated_image.get_rect(center=rect.center)
+
+    screen.fill(background_color)
+    screen.blit(rotated_image, rotated_rect.topleft)
+    pygame.display.flip()
+
 pygame.quit()
+sys.exit()
