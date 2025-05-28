@@ -26,24 +26,29 @@ pygame.init()
 fps = 240
 fpsClock = pygame.time.Clock()
 width, height = 900, 900 
+picture = "circle.png"
 screen = pygame.display.set_mode((width, height))
-original_image = pygame.image.load("circle.png").convert_alpha()
+original_image = pygame.image.load(picture).convert_alpha()
 rect = original_image.get_rect(center=(450, 450))
 angle = 0
 clock = pygame.time.Clock()
+last_change = pygame.time.get_ticks()
 pygame.display.set_caption("Needle Shooting Game")
 background_color=(0,0,0)
+speed = 0.3
 
-for i in range:
-    speed = random.uniform(-0.8, 0.8)
-
-running =True
+running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    angle += 1
+    current_time = pygame.time.get_ticks()
+    if current_time - last_change >= 3000:
+        speed = random.uniform(-0.8, 0.8)
+        last_update = current_time
+
+    angle += speed
     angle %= 360
     rotated_image = pygame.transform.rotate(original_image, -angle) 
     rotated_rect = rotated_image.get_rect(center=rect.center)
