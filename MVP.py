@@ -26,7 +26,7 @@ def main():
     fps_clock = pygame.time.Clock()
     width, height = 1000, 1000
     screen = pygame.display.set_mode((width, height))
-    center = (450, 450)
+    center = (width - 500, 200)
     radius = 150
     x, y, z, a, b, c = 0,0,255,255,0,255
     center_color = (a, b, c) 
