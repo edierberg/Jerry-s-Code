@@ -9,6 +9,8 @@ Speed_Wheel = 20
 Radius_Wheel = 150
 clock  = pygame.time.Clock()
 
+#todo: finish integration, organize, and make rotate
+
 #Wheel
 def Wheel(radius, width, height, screen):
     #pygame.draw.circle(screen, "#ff0000", (width/2, height/2 - 300), radius, 0)
@@ -31,24 +33,6 @@ def make_bow_surface():
 
     return surf
 
-arrow_img = make_arrow_surface()
-bow_img = make_bow_surface()
-
-class Arrow:
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-        self.speed = -600
-
-    def update(self, dt):
-        self.y += self.speed * dt
-
-    def draw(self, surf):
-        surf.blit(arrow_img, arrow_img.get_rect(center=(self.x, self.y)))
-
-arrows = []
-BOW_POS = (500, 500)
-bow_img = pygame.transform.rotate(bow_img, 270)
-
 def Detection(Width_Arrows):
     # check position of arrowead 
     return
@@ -63,6 +47,24 @@ def main():
     x, y, z, a, b, c = 0,0,255,255,0,255
     center_color = (a, b, c) 
     edge_color = (x, y, z)
+
+    arrow_img = make_arrow_surface()
+    bow_img = make_bow_surface()
+
+    class Arrow:
+        def __init__(self, x, y):
+            self.x, self.y = x, y
+            self.speed = -600
+
+        def update(self, dt):
+            self.y += self.speed * dt
+
+        def draw(self, surf):
+            surf.blit(arrow_img, arrow_img.get_rect(center=(self.x, self.y)))
+
+    arrows = []
+    BOW_POS = (500, 500)
+    bow_img = pygame.transform.rotate(bow_img, 270)
 
     Wheel(Radius_Wheel, width, height, screen)
 
