@@ -35,20 +35,44 @@ clock = pygame.time.Clock()
 last_change = pygame.time.get_ticks()
 pygame.display.set_caption("Needle Shooting Game")
 background_color=(0,0,0)
-speed = 0.3
+
+current_speed = 0.3
+target_speed = 1.0
+last_speed_change =time.time()
+transition_start_speed = 1.0
+in_transition = False
 
 running = True
 while running:
+    current_time = time.time()
+    
+    if current_time - last_speed_change > 10 and not in_transition:
+        target_speed = random.uniform(-1.0, 1.0)
+        transition_start_speed = current_speed
+        transition_start_time = current_time
+        in_transition = True
+        last_speed_change = current_time
+    
+    if in_transition:
+        transition_progress = (current_time - transition_start_time) / 2.0
+        if transition_progress >= 1.0:
+            current_speed = target_speed
+            in_transition = False
+        else:
+            current_speed = transition_start_speed + (target_speed - transition_start_speed) * transition_progress
+
+#    if current_time%30=0 and not in_transition:
+#        target_speed = random.uniform(-1.0, 1.0)
+#        transition_start_speed = current_speed
+#        transition_start_time = current_time
+#        in_transition = True
+#        last_speed_change = current_time
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    current_time = pygame.time.get_ticks()
-    if current_time - last_change >= 3000:
-        speed = random.uniform(-0.8, 0.8)
-        last_update = current_time
-
-    angle += speed
+    angle += current_speed
     angle %= 360
     rotated_image = pygame.transform.rotate(original_image, -angle) 
     rotated_rect = rotated_image.get_rect(center=rect.center)
