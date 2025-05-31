@@ -47,7 +47,8 @@ def main():
     x, y, z, a, b, c = 0,0,255,255,0,255
     center_color = (a, b, c) 
     edge_color = (x, y, z)
-
+    screen.fill("#000000")
+    
     arrow_img = make_arrow_surface()
     bow_img = make_bow_surface()
 
@@ -78,10 +79,7 @@ def main():
                 color = tuple(int(center_color[i] + (edge_color[i] - center_color[i]) * t) for i in range(3))
                 screen.set_at((x, y), color)
 
-    pygame.display.flip()
-
     while True:
-        screen.fill("#000000")
         #Spin()
         #Detection()
         fps_clock.tick(fps)
@@ -97,11 +95,12 @@ def main():
         for a in arrows:
             a.update(dt)
 
-        screen.fill((30,30,40))
         screen.blit(bow_img, bow_img.get_rect(center=BOW_POS))
 
         for a in arrows:
             a.draw(screen)
-
+        
+        pygame.display.flip()
+        
 if __name__ == "__main__":
     main()

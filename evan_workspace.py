@@ -67,7 +67,7 @@ class Arrow:
         surf.blit(arrow_img, arrow_img.get_rect(center=(self.x, self.y)))
 
 arrows = []
-BOW_POS = (width//2, height - 80)
+bow_pos = (width//2, height - 80)
 bow_img = pygame.transform.rotate(bow_img, 270)
 
 while True:
@@ -78,13 +78,13 @@ while True:
             pygame.quit(); sys.exit()
         if e.type == pygame.MOUSEBUTTONDOWN:
             # Shoot from bow position
-            arrows.append(Arrow(*BOW_POS))
+            arrows.append(Arrow(*bow_pos))
 
     for a in arrows:
         a.update(dt)
 
     screen.fill((30,30,40))
-    screen.blit(bow_img, bow_img.get_rect(center=BOW_POS))
+    screen.blit(bow_img, bow_img.get_rect(center=bow_pos))
 
     for a in arrows:
         a.draw(screen)
