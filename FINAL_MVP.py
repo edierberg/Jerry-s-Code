@@ -148,7 +148,7 @@ class Arrow:
 
     def draw(self, surf):
 
-        pygame.draw.line(surf, "#efeef1", (self.x, self.y), (self.x2, self.y2), width = 6)
+        pygame.draw.line(surf, "#efeef1", (self.x, self.y), (self.x2, self.y2), width = 5)
 
 if __name__ == "__main__":
     Game = PinNeedle()
