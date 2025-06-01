@@ -136,7 +136,7 @@ class Arrow:
         self.x2, self.y2 = x, y + self.arrow_length
         self.speed = -600
         self.angle = -math.pi/2
-        self.width = 10
+        self.width = 20
         self.surf = pygame.Surface((self.width, 40), pygame.SRCALPHA)
         self.surf.fill((240, 240, 240))
         # pygame.draw.rect(self.surf, (240, 240, 240), (4, 0, 2, 40))        # shaft
@@ -162,7 +162,7 @@ class Arrow:
     def draw(self, surf):
         #surf.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
         #pygame.draw.rect(surf, (240, 240, 240), self.arrowrect)
-        pygame.draw.line(surf, "#efeef1", (self.x, self.y), (self.x2, self.y2), width=7)
+        pygame.draw.line(surf, "#efeef1", (self.x, self.y), (self.x2, self.y2), width = 6)
 
 if __name__ == "__main__":
     Game = PinNeedle()
