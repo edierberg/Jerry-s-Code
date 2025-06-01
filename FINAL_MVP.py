@@ -65,10 +65,10 @@ class PinNeedle:
                     dt = self.clock.tick(60) / 1000
                     current_level = 0
                 if e.type == pygame.KEYDOWN:
-                    self.anglerate += 0.03
+                    self.anglerate += 0.02
                     speed_multiplier *= 2
                     current_level += 1
-                    if self.anglerate > 0.18:
+                    if self.anglerate > 0.15:
                         self.anglerate = 0.1
                         speed_multiplier = 1
                         current_level = 0
