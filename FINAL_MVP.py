@@ -49,11 +49,8 @@ class PinNeedle:
         highscore = 0
 
         while True:
-            #Spin()
-            #Detection()
-            #self.fps_clock.tick(self.fps)
-              # seconds/frame
             dt = self.clock.tick(60) / 1000
+
             for e in pygame.event.get():
                 if e.type == pygame.QUIT:
                     pygame.quit(); sys.exit()
@@ -68,38 +65,38 @@ class PinNeedle:
                     dt = self.clock.tick(60) / 1000
                     current_level = 0
                 if e.type == pygame.KEYDOWN:
-                    self.anglerate += 0.04
+                    self.anglerate += 0.03
                     speed_multiplier *= 2
                     current_level += 1
-                    if self.anglerate > 0.2:
+                    if self.anglerate > 0.18:
                         self.anglerate = 0.1
-                        speed_multiplier /= 4 
+                        speed_multiplier = 1
                         current_level = 0
-
 
             if game_over == False:
                 for a in arrows:
                     a.update(speed_multiplier * dt, self.height, self.width, self.offset, self.radius, self.anglerate)
-                if arrows:
-                    #self.detection(arrows)
-                    pass
+
                 self.screen.fill((30,30,40))
                 self.draw_wheel()
                 self.screen.blit(bow_img, bow_img.get_rect(center=self.BOW_POS))
-                #pygame.time.wait(100)
+
                 count = 0
+
                 for a in arrows:
                     a.draw(self.screen)
                     if a.y <= (self.height/2 - self.offset + self.radius) and a.y >= (self.height/2 - self.offset + self.radius) - 0.1:
                         count += 1
                     if a.y >= (self.height/2 - self.offset + self.radius) and a.y <= (self.height/2 - self.offset + self.radius) + .0000000000001:
                         score += 1
+
                 if count > 1:
                     score -= 1
                     print("intersection")
                     game_over = True
                     if score > highscore:
                         highscore = score
+
                 else: 
                     font = pygame.font.Font(None, 42)
                     score_surf = font.render(str(score), True, (255, 255, 255))
@@ -125,8 +122,6 @@ class PinNeedle:
                 font = pygame.font.Font(None, 42)
                 score_surf5 = font.render(f"High Score:  {highscore}", True, (255, 255, 255))
                 self.screen.blit(score_surf5, (20, 30))
-
-                
             pygame.display.flip()
         
 class Arrow:
@@ -136,14 +131,7 @@ class Arrow:
         self.x2, self.y2 = x, y + self.arrow_length
         self.speed = -600
         self.angle = -math.pi/2
-        self.width = 20
-        self.surf = pygame.Surface((self.width, 40), pygame.SRCALPHA)
-        self.surf.fill((240, 240, 240))
-        # pygame.draw.rect(self.surf, (240, 240, 240), (4, 0, 2, 40))        # shaft
-        # pygame.draw.polygon(self.surf, (180, 0, 0), [(2, 0), (8, 0), (5, -10)])  # tip
-        # self.arrowrect = self.surf.get_rect(self.x, self.y)
-        #self.arrowline = pygame.line(self.x, self.y, 10, 40)
-    
+
     def update(self, dt, height, width, offset, radius, anglerate):
         bottom = height/2 - offset + radius
         center_x = width/2
@@ -157,11 +145,9 @@ class Arrow:
             self.x2 = center_x - (self.arrow_length+radius)*math.cos(self.angle)
             self.y2 = center_y - (self.arrow_length+radius)*math.sin(self.angle)
             self.angle += anglerate
-            #self.surf = pygame.transform.rotate(self.surf, self.angle)
 
     def draw(self, surf):
-        #surf.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
-        #pygame.draw.rect(surf, (240, 240, 240), self.arrowrect)
+
         pygame.draw.line(surf, "#efeef1", (self.x, self.y), (self.x2, self.y2), width = 6)
 
 if __name__ == "__main__":
