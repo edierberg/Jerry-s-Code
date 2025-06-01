@@ -85,9 +85,9 @@ class PinNeedle:
 
                 for a in arrows:
                     a.draw(self.screen)
-                    if a.y <= (self.height/2 - self.offset + self.radius) and a.y >= (self.height/2 - self.offset + self.radius) - 0.1:
+                    if a.y <= (self.height/2 - self.offset + self.radius) and a.y >= (self.height/2 - self.offset + self.radius) - 0.08:
                         count += 1
-                    if a.y >= (self.height/2 - self.offset + self.radius) and a.y <= (self.height/2 - self.offset + self.radius) + .0000000000001:
+                    if a.y >= (self.height/2 - self.offset + self.radius) and a.y <= (self.height/2 - self.offset + self.radius) + .000000000000001:
                         score += 1
 
                 if count > 1:
