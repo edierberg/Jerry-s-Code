@@ -4,6 +4,7 @@ import pygame.locals
 import math
 import random
 import time
+import os
 
 pygame.font.init()
 
@@ -20,8 +21,9 @@ class PinNeedle:
         self.anglerate = 0.05
         self.clock = pygame.time.Clock()
 
-
-        self.original_image = pygame.image.load("circle.png").convert_alpha()
+        base_path = os.path.dirname(__file__)
+        resource_path = os.path.join(base_path, "circle.png")
+        self.original_image = pygame.image.load(resource_path, "circle.png").convert_alpha()
         self.original_image = pygame.transform.scale(self.original_image, (300, 300))
         self.center_x, self.center_y = 400, 250
         self.angle = 0
