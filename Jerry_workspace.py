@@ -43,12 +43,12 @@ last_speed_change = time.time()
 transition_start_speed = 1.0
 in_transition = False
 
-# 上下运动控制变量
+
 center_x, center_y = 450, 450
-move_direction = 0  # 0表示不移动，1表示向上，-1表示向下
-move_speed = 3  # 移动速度
+move_direction = 0  
+move_speed = 3  
 last_move_change = time.time()
-next_change_interval = random.uniform(5, 10)  # 首次变化间隔
+next_change_interval = random.uniform(5, 10)  
 
 running = True
 while running:
@@ -72,25 +72,20 @@ while running:
                 + (target_speed - transition_start_speed) * transition_progress
             )
     ###
-    # 随机上下运动控制
     if current_time - last_move_change > next_change_interval:
-        move_direction = random.choice([-1, 0, 1])  # 随机选择方向
-        next_change_interval = random.uniform(5, 10)  # 设置下次变化间隔
-        move_speed = random.uniform(1, 3)  # 设置下次变化间隔
+        move_direction = random.choice([-1, 0, 1])  
+        next_change_interval = random.uniform(5, 10)  
+        move_speed = random.uniform(1, 3) 
         last_move_change = current_time
 
-    # 更新Y轴位置
     center_y += move_direction * move_speed
 
-    # 限制图片不超出屏幕边界
     if center_x < 0:
         center_x = 0
     elif center_x > width:
         center_x = width
     if center_y < 0:
         center_y = 0
-    #elif center_y > height - original_image.get_height():
-    #    center_y = height - original_image.get_height()
     elif center_y > height:
         center_y = height
 
