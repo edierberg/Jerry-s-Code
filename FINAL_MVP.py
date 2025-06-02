@@ -4,7 +4,6 @@ import pygame.locals
 import math
 import random
 import time
-import os
 
 pygame.font.init()
 
@@ -21,15 +20,61 @@ class PinNeedle:
         self.anglerate = 0.05
         self.clock = pygame.time.Clock()
 
+
+        self.original_image = pygame.image.load("circle.png").convert_alpha()
+        self.original_image = pygame.transform.scale(self.original_image, (300, 300))
+        self.center_x, self.center_y = 400, 250
+        self.angle = 0
+        self.current_speed = 2.3
+        self.target_speed = 1.0
+        self.last_speed_change = time.time()
+        self.transition_start_speed = 1.0
+        self.in_transition = False
+        self.move_direction = 0
+        self.move_speed = 3
+        self.last_move_change = time.time()
+        self.next_change_interval = random.uniform(5, 10)
+
+
+    def update_rotating_circle(self):
+        current_time = time.time()
+
+        if current_time - self.last_speed_change > 10 and not self.in_transition:
+            self.target_speed = random.uniform(-5.0, 5.0)
+            self.transition_start_speed = self.current_speed
+            self.transition_start_time = current_time
+            self.in_transition = True
+            self.last_speed_change = current_time
+
+        if self.in_transition:
+            transition_progress = (current_time - self.transition_start_time) / 2.0
+            if transition_progress >= 1.0:
+                self.current_speed = self.target_speed
+                self.in_transition = False
+            else:
+                self.current_speed = (
+                    self.transition_start_speed
+                    + (self.target_speed - self.transition_start_speed) * transition_progress
+                )
+
+        if current_time - self.last_move_change > self.next_change_interval:
+            self.move_direction = random.choice([-1, 0, 1])
+            self.next_change_interval = random.uniform(5, 10)
+            self.move_speed = random.uniform(0.2, 2)
+            self.last_move_change = current_time
+
+        self.center_y += self.move_direction * self.move_speed
+        self.center_x = min(max(self.center_x, 0), 500)
+        self.center_y = min(max(self.center_y, 0), 500)
+
+        self.angle += self.current_speed
+        self.angle %= 360
+
     def draw_wheel(self):
-        pygame.draw.circle(
-            self.screen,
-            "#650f0e",
-            (self.width / 2, self.height / 2 - self.offset),
-            self.radius,
-            0,
-        )
-        pygame.display.flip()
+        rect = self.original_image.get_rect(center=(self.width / 2, self.height / 2 - self.offset))
+        rotated_image = pygame.transform.rotate(self.original_image, -self.angle)
+        rotated_rect = rotated_image.get_rect(center=rect.center)
+        self.screen.blit(rotated_image, rotated_rect.topleft)
 
     def make_bow_surface(self):
         surf = pygame.Surface((60, 120), pygame.SRCALPHA)
@@ -61,13 +106,14 @@ class PinNeedle:
 
         while True:
             dt = self.clock.tick(60) / 1000
+            self.update_rotating_circle()
 
             for e in pygame.event.get():
+                
                 if e.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if e.type == pygame.MOUSEBUTTONDOWN:
-                    # Shoot from bow position
                     arrows.append(Arrow(*self.BOW_POS))
                 if e.type == pygame.KEYDOWN and game_over:
                     game_over = False
@@ -149,84 +195,6 @@ class PinNeedle:
             self.screen.blit(score_surf5, (20, 30))
             pygame.display.flip()
 
-
-width, height = 800, 1000
-screen = pygame.display.set_mode((width, height))
-original_image = pygame.image.load("circle.png").convert_alpha()
-center_x, center_y = 400, 250
-speed_x, speed_y = 0, 0
-angle = 0
-clock = pygame.time.Clock()
-last_change = pygame.time.get_ticks()
-pygame.display.set_caption("Needle Shooting Game")
-background_color = (0, 0, 0)
-
-current_speed = 0.3
-target_speed = 1.0
-last_speed_change = time.time()
-transition_start_speed = 1.0
-in_transition = False
-
-move_direction = 0
-move_speed = 3
-last_move_change = time.time()
-next_change_interval = random.uniform(5, 10)
-
-running = True
-while running:
-    current_time = time.time()
-
-    if current_time - last_speed_change > 10 and not in_transition:
-        target_speed = random.uniform(-1.0, 1.0)
-        transition_start_speed = current_speed
-        transition_start_time = current_time
-        in_transition = True
-        last_speed_change = current_time
-
-    if in_transition:
-        transition_progress = (current_time - transition_start_time) / 2.0
-        if transition_progress >= 1.0:
-            current_speed = target_speed
-            in_transition = False
-        else:
-            current_speed = (
-                transition_start_speed
-                + (target_speed - transition_start_speed) * transition_progress
-            )
-
-    if current_time - last_move_change > next_change_interval:
-        move_direction = random.choice([-1, 0, 1])
-        next_change_interval = random.uniform(5, 10)
-        move_speed = random.uniform(0.2, 2)
-        last_move_change = current_time
-
-    center_y += move_direction * move_speed
-
-    if center_x < 0:
-        center_x = 0
-    elif center_x > width:
-        center_x = width
-    if center_y < 0:
-        center_y = 0
-    elif center_y > 500:
-        center_y = 500
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    angle += current_speed
-    center_y += speed_y
-    rect = original_image.get_rect(center=(center_x, center_y))
-    angle %= 360
-    rotated_image = pygame.transform.rotate(original_image, -angle)
-    rotated_rect = rotated_image.get_rect(center=rect.center)
-
-    screen.fill(background_color)
-    screen.blit(rotated_image, rotated_rect.topleft)
-    pygame.display.flip()
-
-
 class Arrow:
     def __init__(self, x, y):
         self.x, self.y = x, y
@@ -252,7 +220,6 @@ class Arrow:
     def draw(self, surf):
 
         pygame.draw.line(surf, "#efeef1", (self.x, self.y), (self.x2, self.y2), width=5)
-
 
 if __name__ == "__main__":
     Game = PinNeedle()
