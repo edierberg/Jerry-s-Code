@@ -4,6 +4,7 @@ import pygame.locals
 import math
 import random
 import time
+import os
 
 pygame.font.init()
 
@@ -151,9 +152,7 @@ class PinNeedle:
 
 width, height = 800, 1000
 screen = pygame.display.set_mode((width, height))
-original_image = pygame.image.load(
-    "/Users/mazhengyuan/Dropbox/CSC405 Spring A format/Jerry-s-Code/circle.png"
-).convert_alpha()
+original_image = pygame.image.load("circle.png").convert_alpha()
 center_x, center_y = 400, 250
 speed_x, speed_y = 0, 0
 angle = 0
