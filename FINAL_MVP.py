@@ -92,7 +92,6 @@ class PinNeedle:
 
                 if count > 1:
                     score -= 1
-                    print("intersection")
                     game_over = True
                     if score > highscore:
                         highscore = score
