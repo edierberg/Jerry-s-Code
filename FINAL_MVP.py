@@ -96,28 +96,20 @@ class PinNeedle:
                     if score > highscore:
                         highscore = score
 
-                #else: 
-                font = pygame.font.Font(None, 42)
-                score_surf = font.render(str(score), True, (255, 255, 255))
-                self.screen.blit(score_surf, (self.width - 40, 30))
-                font = pygame.font.Font(None, 18)
-                score_surf3 = font.render("Press a Key to Change Difficulty (Three Levels)", True, (255, 255, 255))
-                self.screen.blit(score_surf3, (20, 800))
-                score_surf4 = font.render(f"Difficulty Level:  {level[current_level]}", True, (255, 255, 255))
-                self.screen.blit(score_surf4, (20, 780))
-                font = pygame.font.Font(None, 42)
-                
-
             else:
-                font = pygame.font.Font(None, 36)
-                score_surf = font.render(str(score), True, (255, 255, 255))
-                self.screen.blit(score_surf, (self.width - 40, 30))
                 font = pygame.font.Font(None, 80)
                 score_surf1 = font.render("GAME OVER", True, (255, 255, 255))
                 score_surf2 = font.render("Press a button to Restart", True, (255, 255, 255))
                 self.screen.blit(score_surf1, (50, 400))
                 self.screen.blit(score_surf2, (50, 500))
+            font = pygame.font.Font(None, 18)
+            score_surf3 = font.render("Press a Key to Change Difficulty (Three Levels)", True, (255, 255, 255))
+            self.screen.blit(score_surf3, (20, 800))
+            score_surf4 = font.render(f"Difficulty Level:  {level[current_level]}", True, (255, 255, 255))
+            self.screen.blit(score_surf4, (20, 780))
             font = pygame.font.Font(None, 42)
+            score_surf = font.render(str(score), True, (255, 255, 255))
+            self.screen.blit(score_surf, (self.width - 40, 30))
             score_surf5 = font.render(f"High Score:  {highscore}", True, (255, 255, 255))
             self.screen.blit(score_surf5, (20, 30))
             pygame.display.flip()
