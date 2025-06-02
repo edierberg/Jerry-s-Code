@@ -15,7 +15,7 @@ class PinNeedle:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.radius = 120
         self.BOW_POS = (400, 800)
-        self.anglerate = 0.1
+        self.anglerate = 0.05
         self.clock = pygame.time.Clock()
 
     def draw_wheel(self):
@@ -68,8 +68,8 @@ class PinNeedle:
                     self.anglerate += 0.02
                     speed_multiplier *= 2
                     current_level += 1
-                    if self.anglerate > 0.15:
-                        self.anglerate = 0.1
+                    if self.anglerate > 0.1:
+                        self.anglerate = 0.05
                         speed_multiplier = 1
                         current_level = 0
 
